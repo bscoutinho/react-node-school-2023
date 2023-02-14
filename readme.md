@@ -9,4 +9,4 @@
 - Run: `npm start`
 
 ### Client Specifications
-- Folder client: Mock Data, no typescript, no state management
+- client: Mock Data, no typescript, no state management
