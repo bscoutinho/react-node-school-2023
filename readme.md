@@ -3,10 +3,13 @@
 ### Server - How to install
 - Run: `npm install`
 - Run: `node index.js`
+- Run: `https://localhost:4000`
 
-### Client - How to install
+### Clients - How to install
 - Run: `npm install`
 - Run: `npm start`
+- Run: `https://localhost:3000`
 
 ### Client Specifications
-- client: Mock Data, no typescript, no state management
+- react-mock: Mock Data, no typescript, no state management
+- react-redux: Redux, no typescript

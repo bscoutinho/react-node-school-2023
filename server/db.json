@@ -2,7 +2,8 @@
   "subjects": [
     {
       "id": 1,
-      "name": "math"
+      "name": "math",
+      "subject": "social studies"
     },
     {
       "id": 2,
@@ -24,8 +25,9 @@
   "exams": [
     {
       "id": 1,
-      "name": "division",
-      "subjectId": 1
+      "name": "divisions",
+      "subjectId": 1,
+      "subjectName": "math"
     },
     {
       "id": 2,
@@ -61,23 +63,13 @@
       "id": 8,
       "name": "the scientific method",
       "subjectId": 4
-    },
-    {
-      "id": 9,
-      "name": "branches of federal government",
-      "subjectId": 5
-    },
-    {
-      "id": 10,
-      "name": "federal elections",
-      "subjectId": 5
     }
   ],
   "students": [
     {
       "id": 1,
       "firstName": "Dorthy",
-      "lastName": "Runolfsdottir"
+      "lastName": "Runolfstand"
     },
     {
       "id": 2,
@@ -88,6 +80,11 @@
       "id": 3,
       "firstName": "Lenora",
       "lastName": "Senger"
+    },
+    {
+      "id": 4,
+      "firstName": "John",
+      "lastName": "Snow"
     }
   ],
   "scores": [
@@ -237,39 +234,11 @@
     },
     {
       "id": 25,
-      "examId": 9,
-      "studentId": 1,
-      "score": 90
-    },
-    {
-      "id": 26,
-      "examId": 9,
-      "studentId": 2,
-      "score": 93
-    },
-    {
-      "id": 27,
-      "examId": 9,
-      "studentId": 3,
-      "score": 63
-    },
-    {
-      "id": 28,
-      "examId": 10,
-      "studentId": 1,
-      "score": 95
-    },
-    {
-      "id": 29,
-      "examId": 10,
-      "studentId": 2,
-      "score": 100
-    },
-    {
-      "id": 30,
-      "examId": 10,
-      "studentId": 3,
-      "score": 99
+      "examId": 1,
+      "studentId": 4,
+      "score": 92,
+      "examName": "divisions",
+      "studentName": "John Snow"
     }
   ]
 }
