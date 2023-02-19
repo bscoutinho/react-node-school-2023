@@ -5,11 +5,13 @@ import {
     DELETE_SCORE
   } from "./types";
   
-  import ScoreDataService from "../services/ScoreService";
+  import DataService from "../services/DataService";
+
+  const path = "scores";
   
   export const retrieveScores = () => async (dispatch) => {
     try {
-      const res = await ScoreDataService.getAll();
+      const res = await DataService.getAll(path);
   
       dispatch({
         type: RETRIEVE_SCORES,
@@ -22,7 +24,7 @@ import {
 
   export const createScore = (obj) => async (dispatch) => {
     try {
-      const res = await ScoreDataService.create(obj);
+      const res = await DataService.create(path, obj);
   
       dispatch({
         type: CREATE_SCORE,
@@ -37,7 +39,7 @@ import {
 
   export const updateScore = (data) => async (dispatch) => {
     try {
-      const res = await ScoreDataService.update(data.id, data);
+      const res = await DataService.update(path, data.id, data);
   
       dispatch({
         type: UPDATE_SCORE,
@@ -52,7 +54,7 @@ import {
   
   export const deleteScore = (id) => async (dispatch) => {
     try {
-      await ScoreDataService.remove(id);
+      await DataService.remove(path, id);
   
       dispatch({
         type: DELETE_SCORE,

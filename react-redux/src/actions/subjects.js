@@ -5,11 +5,13 @@ import {
     DELETE_SUBJECT
   } from "./types";
   
-  import SubjectDataService from "../services/SubjectService";
+  import DataService from "../services/DataService";
+
+  const path = "subjects";
   
   export const retrieveSubjects = () => async (dispatch) => {
     try {
-      const res = await SubjectDataService.getAll();
+      const res = await DataService.getAll(path);
   
       dispatch({
         type: RETRIEVE_SUBJECTS,
@@ -22,7 +24,7 @@ import {
 
   export const createSubject = (obj) => async (dispatch) => {
     try {
-      const res = await SubjectDataService.create(obj);
+      const res = await DataService.create(path, obj);
   
       dispatch({
         type: CREATE_SUBJECT,
@@ -37,7 +39,7 @@ import {
 
   export const updateSubject = (data) => async (dispatch) => {
     try {
-      const res = await SubjectDataService.update(data.id, data);
+      const res = await DataService.update(path, data.id, data);
   
       dispatch({
         type: UPDATE_SUBJECT,
@@ -52,7 +54,7 @@ import {
   
   export const deleteSubject = (id) => async (dispatch) => {
     try {
-      await SubjectDataService.remove(id);
+      await DataService.remove(path, id);
   
       dispatch({
         type: DELETE_SUBJECT,

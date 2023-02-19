@@ -5,11 +5,13 @@ import {
     DELETE_EXAM
   } from "./types";
   
-  import ExamDataService from "../services/ExamService";
+  import DataService from "../services/DataService";
+
+  const path = "exams";
   
   export const retrieveExams = () => async (dispatch) => {
     try {
-      const res = await ExamDataService.getAll();
+      const res = await DataService.getAll(path);
   
       dispatch({
         type: RETRIEVE_EXAMS,
@@ -22,7 +24,7 @@ import {
 
   export const createExam = (obj) => async (dispatch) => {
     try {
-      const res = await ExamDataService.create(obj);
+      const res = await DataService.create(path, obj);
   
       dispatch({
         type: CREATE_EXAM,
@@ -37,7 +39,7 @@ import {
 
   export const updateExam = (data) => async (dispatch) => {
     try {
-      const res = await ExamDataService.update(data.id, data);
+      const res = await DataService.update(path, data.id, data);
   
       dispatch({
         type: UPDATE_EXAM,
@@ -52,7 +54,7 @@ import {
   
   export const deleteExam = (id) => async (dispatch) => {
     try {
-      await ExamDataService.remove(id);
+      await DataService.remove(path, id);
   
       dispatch({
         type: DELETE_EXAM,

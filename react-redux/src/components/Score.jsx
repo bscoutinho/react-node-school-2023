@@ -52,9 +52,6 @@ const Score = () => {
       ...scFormValues,
       [name]: parseInt(value),
     });
-
-    console.log(scores)
-    debugger
   };
 
   const handleSubmit = (event) => {
