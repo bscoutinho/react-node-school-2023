@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   retrieveSubjects,
   createSubject,
   deleteSubject,
   updateSubject
-} from "../actions/subjects";
+} from "../slices/subjects";
 import Title from "../shared/Title";
 import Subtitles from '@mui/icons-material/Subtitles';
 import { DataGrid, GridToolbarFilterButton } from "@mui/x-data-grid";
@@ -31,11 +31,14 @@ const Subject = () => {
   const [alert, setAlert] = useState({open: false, message: '', severity: ''});
   const subjects = useSelector(state => state.subjects);
   const dispatch = useDispatch();
+
+  const initFetch = useCallback(() => {
+    dispatch(retrieveSubjects());
+  }, [dispatch])
   
   useEffect(() => {
-    dispatch(retrieveSubjects());
-
-  }, [dispatch]);
+    initFetch()
+  }, [initFetch])
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

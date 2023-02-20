@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  retrieveSubjects,
-  createSubject,
-  deleteSubject,
-  updateSubject
-} from "../actions/subjects";
+  retrieveStudents,
+  updateStudent,
+  createStudent,
+  deleteStudent
+} from "../slices/students";
 import Title from "../shared/Title";
-import Subtitles from '@mui/icons-material/Subtitles';
+import AccountBox from "@mui/icons-material/AccountBox";
 import { DataGrid, GridToolbarFilterButton } from "@mui/x-data-grid";
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
@@ -24,37 +24,40 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-const Subject = () => {
-  const sbDefaultValues = { id: 0, name: "" };
-  const [sbFormValues, setSbFormValues] = useState(sbDefaultValues);
+const Student = () => {
+
+  const stDefaultValues = { id: 0, firstName: "", lastName: "" };
+  const [stFormValues, setStFormValues] = useState(stDefaultValues);
   const [editMode, setEditMode] = useState(false);
   const [alert, setAlert] = useState({open: false, message: '', severity: ''});
-  const subjects = useSelector(state => state.subjects);
+  const students = useSelector(state => state.students);
   const dispatch = useDispatch();
-  
-  useEffect(() => {
-    dispatch(retrieveSubjects());
 
-  }, [dispatch]);
+  const initFetch = useCallback(() => {
+    dispatch(retrieveStudents());
+  }, [dispatch])
+
+  useEffect(() => {
+    initFetch()
+  }, [initFetch])
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setSbFormValues({
-      ...sbFormValues,
+    setStFormValues({
+      ...stFormValues,
       [name]: value
     });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    
     if(editMode) {
       
-      dispatch(updateSubject(sbFormValues))
+      dispatch(updateStudent(stFormValues))
         .then(() => {
-          setSbFormValues(sbDefaultValues);
+          setStFormValues(stDefaultValues);
           setEditMode(false);
-          setAlert({open: true, message: 'Subject updated successfully', severity: 'success'});
+          setAlert({open: true, message: 'Student updated successfully', severity: 'success'});
         })
         .catch(e => {
           setAlert({open: true, message: `Update error: ${e}`, severity: 'error'});
@@ -62,12 +65,12 @@ const Subject = () => {
 
     } else { 
 
-      let subjectObj = {...sbFormValues, id: subjects.length + 1}
+      let studentObj = {...stFormValues, id: students.length + 1}
 
-      dispatch(createSubject(subjectObj))
+      dispatch(createStudent(studentObj))
         .then(() => {
-          setSbFormValues(sbDefaultValues);
-          setAlert({open: true, message: 'Subject created successfully', severity: 'success'});
+          setStFormValues(stDefaultValues);
+          setAlert({open: true, message: 'Student created successfully', severity: 'success'});
         })
         .catch(e => {
           setAlert({open: true, message: `Creation error: ${e}`, severity: 'error'});
@@ -85,30 +88,28 @@ const Subject = () => {
 
   const columns = [
     { field: "id", headerName: "ID", width: 100 },
-    { field: "name", headerName: "Subject", width: 400 },
+    { field: "firstName", headerName: "First name", width: 400 },
+    { field: "lastName", headerName: "Last name", width: 400 },
     {
       field: "action",
       headerName: "Action",
-      filterable: false,
       sortable: false,
       renderCell: (params) => {
         const editRow = (e) => {
           e.stopPropagation(); // don't select this row after clicking
   
-          const thisRow = subjects.find((row) => row.id === params.id);
-  
-            setEditMode(true);
-            setSbFormValues(thisRow);
+          const thisRow = students.find((row) => row.id === params.id);
+          setEditMode(true);
+          setStFormValues(thisRow);
         };
   
         const deleteRow = (e) => {
           e.stopPropagation(); // don't select this row after clicking
   
-          const thisRow = subjects.find((row) => row.id === params.id);
-  
-          dispatch(deleteSubject(thisRow.id))
+          const thisRow = students.find((row) => row.id === params.id);
+          dispatch(deleteStudent(thisRow.id))
           .then(() => {
-            setAlert({open: true, message: 'Subject deleted successfully', severity: 'success'});
+            setAlert({open: true, message: 'Student deleted successfully', severity: 'success'});
           })
           .catch(e => {
             setAlert({open: true, message: `Delete error: ${e}`, severity: 'error'});
@@ -119,7 +120,7 @@ const Subject = () => {
           <div>
             <IconButton
               color="primary"
-              aria-label="edit subject"
+              aria-label="edit student"
               component="label"
               onClick={editRow}
             >
@@ -128,7 +129,7 @@ const Subject = () => {
   
             <IconButton
               color="error"
-              aria-label="delete subject"
+              aria-label="delete student"
               component="label"
               onClick={deleteRow}
             >
@@ -151,23 +152,35 @@ const Subject = () => {
       >
         <Alert severity={alert.severity} sx={{ width: '100%' }}>{alert.message}</Alert>
       </Snackbar>
-      <Title title="Subject Page" icon={<Subtitles />} />
+      <Title title='Student page' icon={<AccountBox />} />
       <div style={{ padding: "10px 5%" }}>
         <Paper elevation={2} style={{ padding: "10px" }}>
           <Typography variant="h6" component="div" style={{marginBottom: '30px'}}>
-            {editMode ? 'Edit Subject' : 'New Subject'}
+            {editMode ? 'Edit Student' : 'New Student'}
           </Typography>
           <form onSubmit={handleSubmit} style={{marginBottom: '30px'}}>
             <Grid container alignItems="center" justify="center">
               <Grid item>
                 <TextField
                   required
-                  id="name-input"
-                  name="name"
-                  label="Subject"
+                  id="firstName-input"
+                  name="firstName"
+                  label="First Name"
                   type="text"
                   style={{ marginRight: "30px", width: "400px" }}
-                  value={sbFormValues.name}
+                  value={stFormValues.firstName}
+                  onChange={handleInputChange}
+                />
+              </Grid>
+              <Grid item>
+                <TextField
+                  required
+                  id="lastName-input"
+                  name="lastName"
+                  label="Last Name"
+                  type="text"
+                  style={{ marginRight: "30px", width: "400px" }}
+                  value={stFormValues.lastName}
                   onChange={handleInputChange}
                 />
               </Grid>
@@ -177,10 +190,10 @@ const Subject = () => {
             </Grid>
           </form>
           <Typography variant="h6" component="div" style={{marginBottom: '30px'}}>
-            Subject List
+            Student List
           </Typography>
           <DataGrid
-            rows={subjects}
+            rows={students}
             columns={columns}
             pageSize={5}
             rowsPerPageOptions={[5]}
@@ -201,5 +214,4 @@ const Subject = () => {
 };
 
 
-
-export default Subject;
+export default Student;
