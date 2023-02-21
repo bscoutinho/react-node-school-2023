@@ -1,0 +1,27 @@
+.mainContainer {
+    padding: "10px 5%"
+}
+
+.widgetContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgb(25,118,210);
+    background: linear-gradient(180deg, rgba(25,118,210,1) 0%, rgba(25,118,210,1) 50%, rgba(20,93,166,1) 100%);
+}
+
+.widgetTitle {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.chartContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

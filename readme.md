@@ -13,3 +13,5 @@
 ### Client Specifications
 - react-mock: Mock Data, no typescript, no state management
 - react-redux: Redux, no typescript
+- react-reduxtoolkit: Redux Toolkit, no typescript
+- react-context: Context API, no typescript

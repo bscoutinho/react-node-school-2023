@@ -20,6 +20,10 @@
     {
       "id": 5,
       "name": "social studies"
+    },
+    {
+      "id": 6,
+      "name": "test"
     }
   ],
   "exams": [
@@ -234,10 +238,10 @@
     },
     {
       "id": 25,
-      "examId": 6,
+      "examId": 3,
       "studentId": 4,
-      "score": 92,
-      "examName": "divisions",
+      "score": 91,
+      "examName": "redwall exam",
       "studentName": "John Snow"
     }
   ]
